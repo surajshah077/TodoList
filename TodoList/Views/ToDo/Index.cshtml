@@ -1,0 +1,45 @@
+﻿@model Todo
+@{
+    List<Todo> bag = ViewBag.Todo;
+}
+
+<form asp-action="Upsert"  method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title</label>
+        <input asp-for="Title" type="text" class="form-control" id="Title" aria-describedby="Title">
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label asp-for="check" class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in bag)
+        {
+            <tr>
+                <td>@obj.Title</td>
+                <td>@obj.Description</td>
+                <td>
+                    <a asp-action="Index" asp-controller="ToDo" asp-route-id="@obj.Id" class="btn btn-primary">Edit Task</a>
+                    <a asp-action="Delete" asp-controller="ToDo" asp-route-id="@obj.Id" class="btn btn-danger">Delete Task</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
